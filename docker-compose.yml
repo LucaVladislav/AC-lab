@@ -4,4 +4,22 @@ services:
     container_name: ac-lab-app
     ports:
       - "8080:8080"
+    depends_on:
+      - db
     restart: unless-stopped
+
+  db:
+    image: postgres:16
+    container_name: ac-lab-db
+    environment:
+      POSTGRES_DB: cloudapp
+      POSTGRES_USER: clouduser
+      POSTGRES_PASSWORD: cloudpass
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
