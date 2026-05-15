@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ac-lab-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ac-lab-app
+  template:
+    metadata:
+      labels:
+        app: ac-lab-app
+    spec:
+      containers:
+        - name: ac-lab-app
+          image: vluca8/ac-lab-app:1.0
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://postgres:5432/cloudapp
+            - name: SPRING_DATASOURCE_USERNAME
+              value: clouduser
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: cloudpass
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ac-lab-service
+spec:
+  type: NodePort
+  selector:
+    app: ac-lab-app
+  ports:
+    - port: 8080
+      targetPort: 8080
+      nodePort: 30080
