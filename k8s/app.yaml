@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: ac-lab-app
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
       app: ac-lab-app
