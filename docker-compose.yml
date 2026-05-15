@@ -1,6 +1,6 @@
 services:
   app:
-    build: .
+    image: vluca8/ac-lab-app:1.0
     container_name: ac-lab-app
     ports:
       - "8080:8080"
